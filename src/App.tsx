@@ -1,24 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.scss';
+import search from './img/search.svg'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="todo">
+      <div className="_container">
+        <div className="todo__title">To Do List</div>
+        <div className="todo__action action">
+          <div className="action__search">
+            <input type="text" name="search" placeholder="Find task..."/>
+            <div className="action__img">
+              <img src={search} alt="search"/>
+            </div>
+          </div>
+          <div className="action__create">+</div>
+        </div>
+      </div>
     </div>
   );
 }
