@@ -1,0 +1,59 @@
+.task {
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 20px;
+  padding: 30px 20px;
+  background-color: #323337;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 30px;
+  border-radius: 10px;
+  min-height: 90px;
+
+  &__desc {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__id {
+    margin-right: 20px;
+  }
+
+  &__text {
+    text-align: left;
+    max-width: 628px;
+  }
+
+  &__btn {
+    display: flex;
+    flex: 0 1 80px;
+    justify-content: space-between;
+  }
+
+  &__complete {
+    cursor: pointer;
+
+    :hover {
+      transform: scale(1.1);
+    }
+    :active {
+      transform: scale(0.9);
+    }
+  }
+
+  &__delete {
+    cursor: pointer;
+
+    :hover {
+      transform: scale(1.1);
+    }
+    :active {
+      transform: scale(0.9);
+    }
+  }
+}
+
+.done {
+  text-decoration: line-through;
+}
