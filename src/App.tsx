@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.scss';
 import search from './img/search.svg';
 import Task from "./components/Task";
@@ -14,6 +14,15 @@ export interface ITask {
 function App() {
   const [tasks, setTasks] = useState<ITask[] | []>([]);
   const [value, setValue] = useState('');
+
+  useEffect(() => {
+    setTasks(JSON.parse(localStorage.tasks))
+    debugger
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+  }, [tasks])
 
   function addTask() {
     const newTask = {
