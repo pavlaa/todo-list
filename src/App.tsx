@@ -7,28 +7,66 @@ import Task from "./components/Task";
 export interface ITask {
   id: number;
   text: string;
+  isDone: boolean;
+  isFound: boolean;
 }
 
 function App() {
   const [tasks, setTasks] = useState<ITask[] | []>([]);
   const [value, setValue] = useState('');
 
-  const taskItem = tasks.map(task => <Task key={task.id}
-                                           id={task.id}
-                                           text={task.text}
-                                           tasks={tasks}
-                                           setTasks={setTasks}/>);
-
-  function addNewTask() {
-    const newId = tasks.length + 1;
+  function addTask() {
     const newTask = {
-      id: newId,
+      id: Date.now(),
       text: value,
+      isDone: false,
+      isFound: false
     }
-
     setTasks([...tasks, newTask]);
     setValue('');
   }
+
+  function removeTask(id: number) {
+    const newTasks = tasks.filter(task => task.id !== id);
+    setTasks(newTasks);
+  }
+
+  function searchTask() {
+    if (value) {
+      const found = tasks.map(task => {
+        if (!task.text.toLowerCase().includes(value.toLowerCase())) {
+          return {...task, isFound: true};
+        }
+        return {...task, isFound: false};
+      });
+      setTasks(found);
+      debugger
+    } else {
+      const found = tasks.map(task => {return {...task, isFound: false}});
+      setTasks(found);
+    }
+  }
+
+  function doneTask(id: number) {
+    const newTasks = tasks.map(task => {
+      if (task.id === id) {
+        return {...task, isDone: !task.isDone};
+      }
+      return task;
+    });
+    setTasks(newTasks);
+  }
+
+  const taskItem = tasks.map((task, index) => <Task key={task.id}
+                                                                  number={index + 1}
+                                                                  id={task.id}
+                                                                  text={task.text}
+                                                                  isDone={task.isDone}
+                                                                  isFound={task.isFound}
+                                                                  remove={removeTask}
+                                                                  done={doneTask}/>);
+
+  const notFound = tasks.every(task => task.isFound)
 
   return (
     <div className="todo">
@@ -41,13 +79,15 @@ function App() {
                    type="text" name="search"
                    placeholder="Find or add task..."
             />
-            <div className="action__img">
+            <div onClick={searchTask} className="action__img">
               <img src={search} alt="search"/>
             </div>
           </div>
-          <div className="action__create" onClick={addNewTask}>+</div>
+          <div className="action__create" onClick={addTask}>+</div>
         </div>
-        {taskItem}
+        {!notFound
+          ?  taskItem
+          : <div className="notFound">Tasks not found!</div>}
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 .todo {
-  margin: 70px;
+  padding: 70px 0 40px 0;
   text-align: center;
 
   &__title {
@@ -62,4 +62,10 @@
     font-size: 40px;
     line-height: 50px;
   }
+}
+
+.notFound {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 30px;
 }
